@@ -24,7 +24,7 @@ root-directory/
 
 `server/`: This directory contains the implementation of the server API that the website will use to generate responses. It includes the main Python file (**main**.py) responsible for handling incoming requests and serving responses.
 
-To start the server, please refer to the instructions in the [README.md](server/README.md) file located inside the `server/` directory. It will guide you on how to set up and run the server to enable communication with the RASA chatbot and handle user queries.
+To start the server, please refer to the instructions in the [README.md](rasa-server/README.md) file located inside the `server/` directory. It will guide you on how to set up and run the server to enable communication with the RASA chatbot and handle user queries.
 
 ## Getting Started
 
