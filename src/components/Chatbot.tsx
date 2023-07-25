@@ -24,8 +24,9 @@ const Chatbot: React.FC = () => {
       setUserInput("");
 
       if (
-        userInput.toLowerCase().includes("next") &&
-        userInput.toLowerCase().includes("image")
+        userInput.toLowerCase().includes("next") ||
+        (userInput.toLowerCase().includes("next") &&
+          userInput.toLowerCase().includes("image"))
       ) {
         try {
           if (count > 11) {
