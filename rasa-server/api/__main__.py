@@ -1,27 +1,45 @@
 from flask import Flask, request, jsonify, send_file
+from flask_cors import CORS
 import os
+import json
+
+import requests
 
 app = Flask(__name__)
+CORS(app)
 
+global count
 
-@app.route("/get_image", methods=["GET"])
+@app.route("/get_image_url", methods=["GET", "POST"])
 def get_image():
     data = request.get_json()
 
-    image_filepath = os.path.join(os.getcwd(), "images", data[count])
+    count = data["count"]
 
-    if os.path.exists(image_filepath):
-        return "Image not found"
+    with open("images.json", "r") as file:
+        images = json.load(file)
 
-    return send_file(image_filepath, mimetype="image/jpg")
+    image_url = images[f"{count}"]
 
+    return jsonify({"url": image_url})
 
-@app.route("/get_response", methods=["GET"])
+@app.route("/get_response", methods=["GET", "POST"])
 def get_response():
-    data = request.get_json()
+    recieved_data = request.get_json()
+
+    user_input = recieved_data["user_input"]
+
+    data = {
+    'sender': 'user',
+    'message': user_input
+    }
+
+    responses = requests.post("http://localhost:5005/webhooks/rest/webhook", json=data)
+
+    print(f"{responses.text}")
 
     response_data = {
-        "response": "Response from API"
+        "response": responses.json()[0]["text"]
     }
 
     return jsonify(response_data)

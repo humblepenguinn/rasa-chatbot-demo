@@ -1,4 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
+import axios from "axios";
+
+import ImageContext from "../contexts/ImageContext";
 
 interface Message {
   text: string;
@@ -8,32 +11,116 @@ interface Message {
 const Chatbot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [userInput, setUserInput] = useState<string>("");
+  const [count, setCount] = useState<number>(0);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  // Function to handle user input and chatbot replies
-  const handleUserInput = () => {
+  const { setImageUrl } = useContext(ImageContext);
+
+  const handleUserInput = async () => {
     if (userInput.trim() !== "") {
       const userMessage: Message = { text: userInput, isUser: true };
       setMessages((prevMessages) => [...prevMessages, userMessage]);
 
       setUserInput("");
 
-      setTimeout(() => {
-        const chatbotReply: Message = {
-          text: "You said: " + userInput,
+      if (
+        userInput.toLowerCase().includes("next") &&
+        userInput.toLowerCase().includes("image")
+      ) {
+        try {
+          if (count > 11) {
+            return;
+          }
+
+          const response = await axios.post(
+            "http://127.0.0.1:5000/get_image_url",
+            {
+              count: count,
+            }
+          );
+
+          if (response.data) {
+            setImageUrl(response.data.url);
+          }
+
+          setCount((prevCount) => prevCount + 1);
+          const chatbotReply: Message = {
+            text: "Here's the next image.",
+            isUser: false,
+          };
+          setMessages((prevMessages) => [...prevMessages, chatbotReply]);
+        } catch (error) {
+          const chatBotReply: Message = {
+            text: "Sorry, something went wrong. Please try again.",
+            isUser: false,
+          };
+
+          setMessages((prevMessages) => [...prevMessages, chatBotReply]);
+          console.error("Error sending request:", error);
+        }
+
+        return;
+      }
+
+      try {
+        const response = await axios.post(
+          "http://127.0.0.1:5000/get_response",
+          {
+            user_input: userInput,
+          }
+        );
+
+        if (response.data) {
+          const chatbotReply: Message = {
+            text: response.data.response,
+            isUser: false,
+          };
+          setMessages((prevMessages) => [...prevMessages, chatbotReply]);
+        }
+      } catch (error) {
+        const chatBotReply: Message = {
+          text: "Sorry, something went wrong. Please try again.",
           isUser: false,
         };
-        setMessages((prevMessages) => [...prevMessages, chatbotReply]);
-      }, 500);
+
+        setMessages((prevMessages) => [...prevMessages, chatBotReply]);
+        console.error("Error sending request:", error);
+      }
     }
   };
 
-  useEffect(() => {
+  const scrollToBottom = () => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop =
         chatContainerRef.current.scrollHeight;
     }
-  }, [messages]);
+  };
+
+  const scrollUp = () => {
+    if (chatContainerRef.current) {
+      const newScrollTop =
+        chatContainerRef.current.scrollTop -
+        chatContainerRef.current.clientHeight;
+
+      chatContainerRef.current.scrollTop = newScrollTop >= 0 ? newScrollTop : 0;
+    }
+  };
+
+  const scrollDown = () => {
+    if (chatContainerRef.current) {
+      const newScrollTop =
+        chatContainerRef.current.scrollTop +
+        chatContainerRef.current.clientHeight;
+      const maxScrollTop =
+        chatContainerRef.current.scrollHeight -
+        chatContainerRef.current.clientHeight;
+      chatContainerRef.current.scrollTop =
+        newScrollTop <= maxScrollTop ? newScrollTop : maxScrollTop;
+    }
+  };
+  useEffect(() => {
+    scrollToBottom();
+  }, []);
 
   return (
     <div className="chatbot">
@@ -46,6 +133,10 @@ const Chatbot: React.FC = () => {
             {message.text}
           </div>
         ))}
+      </div>
+      <div className="scroll-buttons">
+        <button onClick={scrollUp}>↑</button>
+        <button onClick={scrollDown}>↓</button>
       </div>
       <div className="input-container">
         <input
@@ -105,6 +196,11 @@ const Chatbot: React.FC = () => {
           border: 1px solid #000000;
           border-radius: 5px;
           color: #000000;
+        }
+        .scroll-buttons {
+          display: flex;
+          justify-content: space-between;
+          margin: 5px;
         }
       `}</style>
     </div>

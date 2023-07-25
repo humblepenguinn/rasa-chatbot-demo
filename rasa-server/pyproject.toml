@@ -8,6 +8,11 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = ">=3.8, <3.11"
 flask = "^2.3.2"
+rasa = "^3.6.4"
+py2neo = "^2021.2.3"
+spacy = "^3.6.0"
+rasa-sdk = "^3.6.1"
+flask-cors = "^4.0.0"
 
 
 [build-system]

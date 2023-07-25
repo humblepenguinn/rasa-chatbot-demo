@@ -1,0 +1,46 @@
+[
+  {
+    "name": "Paintings",
+    "pattern": "(\\bKing\\ Caspar\\b|\\bThe\\ Night\\ Watch\\b|\\bA\\ boy\\ in\\ fanciful\\ costume\\b|\\bHalf\\-figure\\ of\\ a\\ Bearded\\ Man\\ with\\ Beret\\b|\\bHead\\ of\\ a\\ Boy\\ in\\ a\\ Turban\\b|\\bDiego\\ Bemba,\\ a\\ Servant\\ of\\ Don\\ Miguel\\ de\\ Castro\\b)"
+  },
+  {
+    "name": "Person",
+    "pattern": "(\\bHendrik\\ Heerschop\\b|\\bGerrit\\ Dou\\b|\\bRembrandt\\b|\\bJacob\\ van\\ der\\ Ulft\\b|\\bLeendert\\ van\\ der\\ Cooghen\\b|\\bHedy\\ Tjin\\b)"
+  },
+  {
+    "name": "Movement",
+    "pattern": "(\\bBaroque\\ painting\\b|\\bBaroque\\b|\\bDutch\\ Golden\\ Age\\ painting\\b|\\bOrientalism\\b|\\bRealism\\b|\\bneo\\-impressionism\\b)"
+  },
+  {
+    "name": "Material",
+    "pattern": "(\\bcanvas\\b|\\bgold\\b|\\bcopper\\ sheet\\b|\\boak\\ panel\\b|\\bwood\\b|\\bpoplar\\ panel\\b)"
+  },
+  {
+    "name": "Keyword",
+    "pattern": "(\\bSaint\\ Bavo\\b|\\bSaint\\ Caspar\\b|\\bOrientalist\\ painting\\b|\\btusk\\b|\\bhomer\\b|\\bPilate\\ washing\\ his\\ hands\\b)"
+  },
+  {
+    "name": "Genre",
+    "pattern": "(\\bportrait\\b|\\breligious\\ art\\b|\\blandscape\\ art\\b|\\bhistory\\ painting\\b|\\bschutterstuk\\b|\\ballegory\\b|\\bmythological\\ painting\\b)"
+  },
+  {
+    "name": "Exhibition",
+    "pattern": "(\\bNational\\ Trust\\ \\-\\ Dutch\\ Masters\\ from\\ British\\ Country\\ Houses\\b|\\bBodies\\ and\\ Shadows:\\ Caravaggio\\ and\\ his\\ European\\ followers\\b|\\bLate\\ Rembrandt\\b|\\bMuseum\\ of\\ Fine\\ Arts\\b|\\bNational\\ Gallery\\b|\\bHundred\\ Masterpieces\\ in\\ Parisian\\ Collections\\ 1883\\b|\\bRembrandt\\ House\\ Museum\\b)"
+  },
+  {
+    "name": "Country",
+    "pattern": "(\\bUnited\\ Arab\\ Emirates\\b|\\bAustralia\\b|\\bArgentina\\b|\\bCzech\\ Republic\\b|\\bRussian\\ Empire\\b|\\bRomania\\b)"
+  },
+  {
+    "name": "Collection",
+    "pattern": "(\\bKoninklijke\\ Bibliotheek\\b|\\bAmsterdam\\ Museum\\b|\\bThe\\ Hyde\\ Collection\\b|\\bDetroit\\ Institute\\ of\\ Arts\\b|\\bJoslyn\\ Art\\ Museum\\b|\\bArtizon\\ Museum\\b|\\bRoyal\\ Castle\\b)"
+  },
+  {
+    "name": "City",
+    "pattern": "(\\bNuremberg\\b|\\bPasadena\\b|\\bLeipzig\\b|\\bLondon\\ Borough\\ of\\ Southwark\\b|\\bDulwich\\b|\\bBucharest\\b)"
+  },
+  {
+    "name": "aspect",
+    "pattern": "(\\bDate\\b|\\bPerson\\b|\\bMaterial\\b|\\bCollection\\b|\\bCountry\\b|\\bGenre\\b|\\bKeyword\\b|\\bExhibition\\b|\\bMovement\\b|\\bCity\\b|\\bPaintings\\b)"
+  }
+]
